@@ -1,5 +1,6 @@
 import logging
 import numpy
+import scipy.special
 
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,9 @@ class neuralNetwork:
         self.wih = numpy.random.normal(0.0, pow(self.hnodes, -0.5), (self.hnodes, self.inodes))
         self.who = numpy.random.normal(0.0, pow(self.onodes, -0.5), (self.onodes, self.hnodes))
         
+        # Activation function is the sigmoid function
+        self.activation_function = lambda x: scipy.special.expit(x) 
+
         pass
     
     def train(self):
@@ -30,8 +34,16 @@ class neuralNetwork:
         """
         pass
 
-    def query(self):
+    def query(self, inputs_list):
         """
         query the neural network
         """
+        inputs = numpy.array(inputs_list, ndmin=2).T
+
+        hidden_outputs = self.activation_function(hidden_inputs)
+
+        final_inputs = self.activation_function(final_inputs)
+
+        return final_outputs
+
         pass
